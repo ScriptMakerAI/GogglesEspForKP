@@ -1,0 +1,21 @@
+-- Find all models, tools and parts in the game
+local descendants = game:GetService("Workspace"):GetDescendants()
+
+-- Loop through each descendant
+for _, descendant in ipairs(descendants) do
+    -- Check if the descendant is a model, tool or part
+    if descendant:IsA("Model") or descendant:IsA("Tool") or descendant:IsA("BasePart") then
+        -- Check if the descendant's name, model name or tool name contains the word "Hitbox"
+        if string.find(descendant.Name, "Hitbox") or (descendant:IsA("Tool") and string.find(descendant.Name, "Hitbox")) or (descendant:IsA("Model") and string.find(descendant.Name, "Hitbox")) then
+            -- Highlight the descendant
+            local highlight = Instance.new("BoxHandleAdornment")
+            highlight.Size = descendant.Size + Vector3.new(0.1, 0.1, 0.1)
+            highlight.Adornee = descendant
+            highlight.AlwaysOnTop = true
+            highlight.ZIndex = 10
+            highlight.Color3 = Color3.new(1, 1, 1)
+            highlight.Transparency = 0.5
+            highlight.Parent = descendant
+        end
+    end
+end
